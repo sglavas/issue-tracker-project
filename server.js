@@ -6,6 +6,8 @@ const expect      = require('chai').expect;
 const cors        = require('cors');
 require('dotenv').config();
 
+const mongoose = require('mongoose');
+
 const apiRoutes         = require('./routes/api.js');
 const fccTestingRoutes  = require('./routes/fcctesting.js');
 const runner            = require('./test-runner');
@@ -20,6 +22,19 @@ app.use(cors({origin: '*'})); //For FCC testing purposes only
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+
+// Basic configuration
+const connectToDb = async () => {
+  try{
+    await mongoose.connect(process.env.MONGO_URI);
+    console.log("Mongo DB connection successful")
+  }catch(error){
+    console.error("MongoDB connection error: ", error.message);
+  }
+}
+
+connectToDb();
 
 //Sample front-end
 app.route('/:project/')
