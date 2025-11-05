@@ -1,29 +1,29 @@
 const mongoose = require('mongoose');
 
 const issueSchema = new mongoose.Schema({
-    issue_title:{
+    issueTitle:{
         type: String,
         required: true
     },
-    issue_text:{
+    issueText:{
         type: String,
         required: true
     },
-    created_on: {
+    createdOn: {
         type: Date,
         required: true
     },
-    updated_on: Date,
-    created_by: {
+    updatedOn: Date,
+    createdBy: {
         type: String,
         required: true
     },
-    assigned_to: String,
+    assignedTo: String,
     open:{
         type: Boolean,
         required: true
     },
-    status_text: String
+    statusText: String
 })
 
 const Issue = mongoose.model('Issue', issueSchema);
