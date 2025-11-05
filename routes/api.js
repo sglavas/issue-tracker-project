@@ -1,5 +1,7 @@
 'use strict';
 
+const { createAndSaveIssue } = require('./../database/mongoDB')
+
 module.exports = function (app) {
 
   app.route('/api/issues/:project')
@@ -13,8 +15,9 @@ module.exports = function (app) {
     
     .post(function (req, res){
       let project = req.params.project;
-      // Get values from the create input
-      const { issue_title, issue_text, created_by, assigned_to, status_text } = req.body;
+
+      createAndSaveIssue(req.body)
+
     })
     
     .put(function (req, res){
