@@ -5,12 +5,16 @@ const createAndSaveIssue = async (issue) => {
     // Get values from the create input
     const { issue_title, issue_text, created_by, assigned_to, status_text, project } = issue;
 
+    // Generate current date object
+    let currentDate = new Date();
+
     // Create issue document with info input and current date
     const issueEntry = await new Issue({
         project: project,
         issueTitle: issue_title,
         issueText: issue_text,
-        createdOn: new Date(),
+        createdOn: currentDate,
+        updatedOn: currentDate,
         createdBy: created_by,
         assignedTo: assigned_to,
         open: true,
@@ -83,7 +87,7 @@ const findExercise = async (input) => {
         // Query the Issue model
         let result = await Issue.find(query);
         return result;
-        
+
     }catch(error){
         console.log(error);
     }
