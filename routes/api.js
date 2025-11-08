@@ -1,6 +1,6 @@
 'use strict';
 
-const { createAndSaveIssue, findIssue } = require('./../database/mongoDB')
+const { createAndSaveIssue, findIssue, findAndUpdateIssue } = require('./../database/mongoDB')
 
 module.exports = function (app) {
 
@@ -35,9 +35,22 @@ module.exports = function (app) {
 
     })
     
-    .put(function (req, res){
+    .put(async function (req, res){
       let project = req.params.project;
 
+      // Add project to the document object
+      let documentObject = req.body;
+      documentObject.project = project;
+
+      // Define the open property and add it to the document object
+      let openProperty = req.body.open ? false : true
+
+      documentObject.open = openProperty;
+
+      // Query the DB with the document object
+      let result = await findAndUpdateIssue(documentObject);
+
+      res.send({ result: "successfully updated", "_id": result._id });
 
     })
     
