@@ -21,7 +21,7 @@ module.exports = function (app) {
       res.json(result);
     })
     
-    .post(function (req, res){
+    .post(async function (req, res){
       let project = req.params.project;
 
       // Add project to the document object
@@ -29,7 +29,9 @@ module.exports = function (app) {
       documentObject.project = project
 
       // Query the DB with the document object
-      createAndSaveIssue(documentObject)
+      let result = await createAndSaveIssue(documentObject);
+
+      res.send(result);
 
     })
     
