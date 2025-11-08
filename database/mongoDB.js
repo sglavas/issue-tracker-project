@@ -96,7 +96,35 @@ const findIssue = async (issue) => {
 
 const findAndUpdateIssue = async (issue) => {
     // Get values from the update input     
-    const { _id, issue_title, issue_text, created_by, assigned_to, status_text, project } = issue;
+    const { _id, issue_title, issue_text, created_by, assigned_to, status_text, open, project } = issue;
+    try{
+        // Define the filter using the issue _id and project name
+        const filter = {
+            project: project,
+            _id: _id
+        };
+
+        // Define the new updated_on date and time
+        const newDate = new Date();
+
+        // Define the information that the document should be updated with
+        const update = {
+            issueTitle: issue_title,
+            issueText: issue_text,
+            updatedOn: newDate,
+            createdBy: created_by,
+            assignedTo: assigned_to,
+            open: open,
+            statusText: status_text
+        };
+
+        // Find the document, update it and return the updated document
+        let result = await Issue.findOneAndUpdate(filter, update, { new: true });
+
+        return result;
+    }catch(error){
+        console.log(error);
+    }
 }
 
-module.exports = { createAndSaveIssue, findIssue }
+module.exports = { createAndSaveIssue, findIssue, findAndUpdateIssue }
