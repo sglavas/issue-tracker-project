@@ -1,6 +1,6 @@
 'use strict';
 
-const { createAndSaveIssue, findExercise } = require('./../database/mongoDB')
+const { createAndSaveIssue, findIssue } = require('./../database/mongoDB')
 
 module.exports = function (app) {
 
@@ -16,7 +16,7 @@ module.exports = function (app) {
       documentObject.project = project;
 
       // Query the DB with the document object
-      let result = await findExercise(documentObject);
+      let result = await findIssue(documentObject);
 
       res.json(result);
     })

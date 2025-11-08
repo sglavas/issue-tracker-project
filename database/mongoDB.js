@@ -32,9 +32,9 @@ const createAndSaveIssue = async (issue) => {
 }
 
 
-const findExercise = async (input) => {
+const findIssue = async (issue) => {
     // Destructure the input
-    const { assigned_to, status_text, open, _id, issue_title, issue_text, created_by, created_on, updated_on, project } = input
+    const { assigned_to, status_text, open, _id, issue_title, issue_text, created_by, created_on, updated_on, project } = issue
 
     try{
         // Get MongoDB query
@@ -99,4 +99,4 @@ const findAndUpdateIssue = async (issue) => {
     const { _id, issue_title, issue_text, created_by, assigned_to, status_text, project } = issue;
 }
 
-module.exports = { createAndSaveIssue, findExercise }
+module.exports = { createAndSaveIssue, findIssue }
