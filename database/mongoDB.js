@@ -7,21 +7,21 @@ const createAndSaveIssue = async (issue) => {
 
     // Generate current date object
     let currentDate = new Date();
-
-    // Create issue document with info input and current date
-    const issueEntry = await new Issue({
-        project: project,
-        issueTitle: issue_title,
-        issueText: issue_text,
-        createdOn: currentDate,
-        updatedOn: currentDate,
-        createdBy: created_by,
-        assignedTo: assigned_to,
-        open: true,
-        statusText: status_text
-    })
-
+    
     try{
+        // Create issue document with info input and current date
+        const issueEntry = new Issue({
+            project: project,
+            issueTitle: issue_title,
+            issueText: issue_text,
+            createdOn: currentDate,
+            updatedOn: currentDate,
+            createdBy: created_by,
+            assignedTo: assigned_to,
+            open: true,
+            statusText: status_text
+        })
+
         // Save issue document to the model
         let result = await issueEntry.save();
 
