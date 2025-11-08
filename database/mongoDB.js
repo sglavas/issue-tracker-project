@@ -93,4 +93,10 @@ const findExercise = async (input) => {
     }
 }
 
+
+const findAndUpdateIssue = async (issue) => {
+    // Get values from the update input     
+    const { _id, issue_title, issue_text, created_by, assigned_to, status_text, project } = issue;
+}
+
 module.exports = { createAndSaveIssue, findExercise }

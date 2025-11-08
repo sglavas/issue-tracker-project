@@ -37,8 +37,7 @@ module.exports = function (app) {
     
     .put(function (req, res){
       let project = req.params.project;
-      // Get values from the update input
-      const { _id, issue_title, issue_text, created_by, assigned_to, status_text } = req.body;
+
 
     })
     
