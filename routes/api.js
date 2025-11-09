@@ -1,6 +1,8 @@
 'use strict';
 
 const { createAndSaveIssue, findIssue, findAndUpdateIssue, removeIssue } = require('./../database/mongoDB')
+const populateArray = require('./../utils/populateArray');
+
 
 module.exports = function (app) {
 
@@ -18,7 +20,17 @@ module.exports = function (app) {
       // Query the DB with the document object
       let result = await findIssue(documentObject);
 
-      res.json(result);
+      // If nothing matches the query
+      if(result === "[]"){
+        // Send empty array
+        res.json(result);
+      }
+
+      // If the query has matches, populate the array with the necessary information in the correct format
+      const populatedArray = populateArray(result);
+      // Send response
+      res.json(populatedArray);
+
     })
     
     .post(async function (req, res){
