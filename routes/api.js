@@ -56,8 +56,10 @@ module.exports = function (app) {
     
     .delete(function (req, res){
       let project = req.params.project;
-      // Get ID from the delete input
-      const { _id } = req.body;
+
+      let documentObject = req.body;
+      documentObject.project = project;
+
     });
     
 };
