@@ -50,6 +50,12 @@ module.exports = function (app) {
       // Query the DB with the document object
       let result = await findAndUpdateIssue(documentObject);
 
+      // If no document was found, send error response
+      if(result === null){
+        res.send({ result:"could not update", _id: documentObject._id});
+        return;
+      }
+
       res.send({ result: "successfully updated", "_id": result._id });
 
     })
