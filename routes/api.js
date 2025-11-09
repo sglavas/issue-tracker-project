@@ -1,6 +1,6 @@
 'use strict';
 
-const { createAndSaveIssue, findIssue, findAndUpdateIssue } = require('./../database/mongoDB')
+const { createAndSaveIssue, findIssue, findAndUpdateIssue, removeIssue } = require('./../database/mongoDB')
 
 module.exports = function (app) {
 
@@ -60,12 +60,24 @@ module.exports = function (app) {
 
     })
     
-    .delete(function (req, res){
+    .delete(async function (req, res){
       let project = req.params.project;
 
+      // Add project to document object
       let documentObject = req.body;
       documentObject.project = project;
 
+      // Query the DB with the document object
+      const result = await removeIssue(documentObject)
+
+      // If no document was found, send error response
+      if(result === null){
+        res.send({ result:"could not delete", _id: documentObject._id});
+        return;
+      }
+
+      // If a document was removed, send success response
+      res.send({ result:"successfully deleted", _id: result._id});
     });
     
 };
