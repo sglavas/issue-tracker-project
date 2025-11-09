@@ -5,25 +5,25 @@ const issueSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    issueTitle:{
+    issue_title:{
         type: String,
     },
-    issueText:{
+    issue_text:{
         type: String,
     },
-    createdOn: {
+    created_on: {
         type: Date,
     },
-    updatedOn: Date,
-    createdBy: {
+    updated_on: Date,
+    created_by: {
         type: String,
     },
-    assignedTo: String,
+    assigned_to: String,
     open:{
         type: Boolean,
         required: true
     },
-    statusText: String
+    status_text: String
 })
 
 const Issue = mongoose.model('Issue', issueSchema);

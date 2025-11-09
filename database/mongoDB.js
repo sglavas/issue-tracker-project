@@ -12,14 +12,14 @@ const createAndSaveIssue = async (issue) => {
         // Create issue document with info input and current date
         const issueEntry = new Issue({
             project: project,
-            issueTitle: issue_title,
-            issueText: issue_text,
-            createdOn: currentDate,
-            updatedOn: currentDate,
-            createdBy: created_by,
-            assignedTo: assigned_to,
+            issue_title: issue_title,
+            issue_text: issue_text,
+            created_on: currentDate,
+            updated_on: currentDate,
+            created_by: created_by,
+            assigned_to: assigned_to,
             open: true,
-            statusText: status_text
+            status_text: status_text
         })
 
         // Save issue document to the model
@@ -42,11 +42,11 @@ const findIssue = async (issue) => {
 
         // If parameters exist and are valid, add them to the MongoDB query
         if(assigned_to){
-            query.assignedTo = assigned_to;
+            query.assigned_to = assigned_to;
         }
 
         if(status_text){
-            query.statusText = status_text;
+            query.status_text = status_text;
         }
 
         if(typeof open === "boolean"){
@@ -58,26 +58,26 @@ const findIssue = async (issue) => {
         }
 
         if(issue_title){
-            query.issueTitle = issue_title;
+            query.issue_title = issue_title;
         }
 
         if(issue_text){
-            query.issueText = issue_text
+            query.issue_text = issue_text
         }
 
         if(created_by){
-            query.createdBy = created_by;
+            query.created_by = created_by;
         }
 
         // If date is valid, add it to the query
         if(isValidDate(created_on)){
             let dateObject = new Date(created_on);
-            query.createdOn = dateObject;
+            query.created_on = dateObject;
         }
 
         if(isValidDate(updated_on)){
             let dateObject = new Date(updated_on);
-            query.updatedOn = dateObject;
+            query.updated_on = dateObject;
         }
 
         if(project){
@@ -109,13 +109,13 @@ const findAndUpdateIssue = async (issue) => {
 
         // Define the information that the document should be updated with
         const update = {
-            issueTitle: issue_title,
-            issueText: issue_text,
-            updatedOn: newDate,
-            createdBy: created_by,
-            assignedTo: assigned_to,
+            issue_title: issue_title,
+            issue_text: issue_text,
+            updated_on: newDate,
+            created_by: created_by,
+            assigned_to: assigned_to,
             open: open,
-            statusText: status_text
+            status_text: status_text
         };
 
         // Find the document, update it and return the updated document
