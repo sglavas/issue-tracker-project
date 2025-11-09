@@ -127,4 +127,22 @@ const findAndUpdateIssue = async (issue) => {
     }
 }
 
-module.exports = { createAndSaveIssue, findIssue, findAndUpdateIssue }
+const removeIssue = async (issue) => {
+    // Get values from the remove input
+    const { _id, project } = issue;
+    try{
+        // Define the filter using the issue _id and project name
+        const filter = {
+            project: project,
+            _id: _id
+        };
+
+        // Find the document and delete it if exists
+        const result = Issue.findOneAndDelete(filter);
+        return result;
+    }catch(error){
+        console.log(error)
+    }
+}
+
+module.exports = { createAndSaveIssue, findIssue, findAndUpdateIssue, removeIssue }
