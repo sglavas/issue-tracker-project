@@ -19,11 +19,12 @@ module.exports = function (app) {
 
       // Query the DB with the document object
       let result = await findIssue(documentObject);
-
+      
       // If nothing matches the query
-      if(result === "[]"){
+      if(result === "[]" || !result){
         // Send empty array
         res.json(result);
+        return;
       }
 
       // If the query has matches, populate the array with the necessary information in the correct format
@@ -35,6 +36,12 @@ module.exports = function (app) {
     
     .post(async function (req, res){
       let project = req.params.project;
+
+      // If the required fields are missing
+      if(!req.body.issue_title || !req.body.issue_text || !req.body.created_by){
+        res.send({ error: 'required field(s) missing' });
+        return;
+      }
 
       // Add project to the document object
       let documentObject = req.body;
@@ -50,6 +57,22 @@ module.exports = function (app) {
     .put(async function (req, res){
       let project = req.params.project;
 
+      const { assigned_to, status_text, _id, open, issue_title, issue_text, created_by } = req.body;
+      
+      // If the id is missing
+      if(!_id){
+        res.send({ error: 'missing _id' });
+        return;
+      }
+
+      // If all update fields are empty
+      if(!assigned_to && !status_text && !open && !issue_title && !issue_text && !created_by){
+        res.send({ error: 'no update field(s) sent', '_id': _id });
+        return;
+      }
+
+
+
       // Add project to the document object
       let documentObject = req.body;
       documentObject.project = project;
@@ -63,8 +86,8 @@ module.exports = function (app) {
       let result = await findAndUpdateIssue(documentObject);
 
       // If no document was found, send error response
-      if(result === null){
-        res.send({ result:"could not update", _id: documentObject._id});
+      if(!result){
+        res.send({ error: "could not update", _id: documentObject._id});
         return;
       }
 
@@ -79,12 +102,18 @@ module.exports = function (app) {
       let documentObject = req.body;
       documentObject.project = project;
 
+      // If the id is missing
+      if(!req.body._id){
+        res.send({ error: 'missing _id' });
+        return;
+      }
+
       // Query the DB with the document object
       const result = await removeIssue(documentObject)
 
       // If no document was found, send error response
-      if(result === null){
-        res.send({ result:"could not delete", _id: documentObject._id});
+      if(!result){
+        res.send({ error: "could not delete", _id: documentObject._id});
         return;
       }
 
