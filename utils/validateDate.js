@@ -1,6 +1,6 @@
 /**
  * Validate if a string represents a valid date
- * @module utils/validate
+ * @module utils/validateDate
  * @param {string} date - Date provided as a string
  * @returns {boolean} True if the date is valid, false otherwise
  */
