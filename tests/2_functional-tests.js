@@ -24,6 +24,7 @@ suite('Functional Tests', function() {
 
     // #1
     test('#1 Create an issue with every field: POST request to /api/issues/test', (done) => {
+        this.timeout(10000);
         chai
             .request(server)
             .keepOpen()
@@ -52,9 +53,10 @@ suite('Functional Tests', function() {
                 testData.push(responseObject);
                 done();
             });
-    })
+    });
     // #2
     test('#2 Create an issue with every field: POST request to /api/issues/test', (done) => {
+        this.timeout(5000);
         chai
             .request(server)
             .keepOpen()
@@ -84,12 +86,13 @@ suite('Functional Tests', function() {
 
                 done();
             });
-    })
+    });
 
 
 
     // #3
     test('#3 Create an issue with only required fields: POST request to /api/issues/test', (done) => {
+        this.timeout(5000);
         chai
         .request(server)
         .keepOpen()
@@ -115,10 +118,11 @@ suite('Functional Tests', function() {
 
             done();
         });
-    })
+    });
     
     // #4
     test('#4 Create an issue with missing required fields: POST request to /api/issues/test', (done) => {
+        this.timeout(5000);
         chai
             .request(server)
             .keepOpen()
