@@ -1,5 +1,6 @@
 const Issue = require('./models');
 const { isValidDate } = require('./../utils/validateDate');
+const isValidObjectId = require('./../utils/validateMongoId');
 
 const createAndSaveIssue = async (issue) => {
     // Get values from the create input
@@ -53,7 +54,8 @@ const findIssue = async (issue) => {
             query.open = open;
         }
 
-        if(_id){
+        // Validate MongoDB ID
+        if(isValidObjectId(_id)){
             query._id = _id;
         }
 
